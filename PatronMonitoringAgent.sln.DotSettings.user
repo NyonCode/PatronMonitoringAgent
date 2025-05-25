@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/RunConfigs/Config/=71DD020294AE2348A72064C4D522FDBF/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/RunConfigs/Config/=71DD020294AE2348A72064C4D522FDBF/Type/@EntryValue">project</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=71DD020294AE2348A72064C4D522FDBF/Name/@EntryValue">PatronMonitoringAgent.Common</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=71DD020294AE2348A72064C4D522FDBF/ProjectGuid/@EntryValue">DC8764DD637DCB45B5E83EE5456A7C79</s:String>
+	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">71DD020294AE2348A72064C4D522FDBF</s:String></wpf:ResourceDictionary>

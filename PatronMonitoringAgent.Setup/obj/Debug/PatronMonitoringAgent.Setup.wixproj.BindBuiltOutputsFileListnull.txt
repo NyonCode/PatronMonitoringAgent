@@ -1,0 +1,3 @@
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Setup\bin\Debug\cab1.cab
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Setup\bin\Debug\PatronMonitoringAgent.Setup.msi
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Setup\bin\Debug\PatronMonitoringAgent.Setup.wixpdb
