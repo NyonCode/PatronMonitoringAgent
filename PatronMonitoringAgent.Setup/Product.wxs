@@ -14,20 +14,21 @@
     </Feature>
   </Product>
 
-  <<Fragment>
-	  <Directory Id="TARGETDIR" Name="SourceDir">
-		  <Directory Id="ProgramFilesFolder">
-			  <Directory Id="NyonCode" Name="NyonCode">
-				  <Directory Id="INSTALLFOLDER" Name="Patron Service Agent Client" />
-			  </Directory>
-		  </Directory>
-	  </Directory>
+  <Fragment>
+	      <Directory Id="TARGETDIR" Name="SourceDir">
+		      <Directory Id="ProgramFilesFolder">
+			      <Directory Id="NyonCode" Name="NyonCode">
+				      <Directory Id="INSTALLFOLDER" Name="Patron Monitoring Agent" />
+			      </Directory>
+		      </Directory>
+	      </Directory>
   </Fragment>
 
   <Fragment>
-    <ComponentGroup Id="ProgramFilesFolder_files" Directory="ProgramFilesFolder">
+    <ComponentGroup Id="ProgramFilesFolder_files" Directory="INSTALLFOLDER">
       <Component Id="PatronMonitoringAgent.exe" Guid="13620ffc-2486-404e-be40-fa1c6b63b57b">
         <File Id="PatronMonitoringAgent.exe" Name="PatronMonitoringAgent.exe" Source="$(var.PatronMonitoringAgent_TargetDir)PatronMonitoringAgent.exe" KeyPath="yes" />
+		  
         <!-- Můžeš zde přidat ServiceInstall a ServiceControl pro instalaci služby -->
         <ServiceInstall Id="PatronMonitoringAgentService" Type="ownProcess" Name="PatronMonitoringAgent" DisplayName="Patron Monitoring Agent" Description="Monitoring a sprava endpointu" Start="auto" Account="LocalSystem" ErrorControl="normal" />
         <ServiceControl Id="StartService" Name="PatronMonitoringAgent" Start="install" Stop="both" Remove="uninstall" Wait="yes" />

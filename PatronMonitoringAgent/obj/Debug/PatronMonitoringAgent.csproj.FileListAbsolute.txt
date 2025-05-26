@@ -54,3 +54,4 @@ C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Debug\PatronMo.3675F31D.Up2Date
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Debug\PatronMonitoringAgent.exe
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Debug\PatronMonitoringAgent.pdb
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Debug\PatronMonitoringAgent.exe.config

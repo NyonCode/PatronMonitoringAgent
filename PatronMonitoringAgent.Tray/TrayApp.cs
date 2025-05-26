@@ -82,7 +82,7 @@ namespace PatronMonitoringAgent.Tray
                     sc.Start();
                     sc.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(20));
                 }
-                MessageBox.Show("Agent byl restartován.", "EMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Agent byl restartován.", "PAtron Monitorin Agent", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using PatronMonitoringAgent.Common;
 using System;
+using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 
@@ -7,10 +8,9 @@ namespace PatronMonitoringAgent
 {
     public partial class AgentService : ServiceBase
     {
+
+
         private AgentRunner _runner;
-        private readonly IApiClient _apiClient;
-        private readonly IConfigurationProvider _config;
-        private readonly ILoggerService _logger;
 
         public AgentService()
         {
@@ -19,48 +19,61 @@ namespace PatronMonitoringAgent
 
         protected override void OnStart(string[] args)
         {
+            ServiceStatus serviceStatus = new ServiceStatus();
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
+            serviceStatus.dwWaitHint = 100000;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
             _runner = new AgentRunner();
             _runner.StartAsync();
         }
 
         protected override void OnStop()
         {
-            // Ukončete všechny běžící úlohy a uvolněte prostředky
-            if (_runner != null)
-            {
-                _runner.Stop();
-            }
+            // Update the service state to Stop Pending.
+            ServiceStatus serviceStatus = new ServiceStatus();
+            serviceStatus.dwServiceType = 0x00000010; // SERVICE_WIN32_OWN_PROCESS
+            serviceStatus.dwControlsAccepted = 0x00000001; // SERVICE_ACCEPT_STOP
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_STOP_PENDING;
+            serviceStatus.dwWaitHint = 100000;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            // Update the service state to Stopped.
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            _runner?.Stop();
         }
 
         protected override void OnShutdown()
         {
-            // Odeslat info o vypnutí/restartu systému
-            SendShutdownInfoAsync("system_shutdown").Wait();
-            _runner?.Stop();
+            OnStop();
         }
 
-        // Volitelné: lze rozlišit i typ události (shutdown vs restart), např. přes SystemEvents nebo Environment.HasShutdownStarted
-
-        private async Task SendShutdownInfoAsync(string reason)
+        public enum ServiceState
         {
-            try
-            {
-                var data = new
-                {
-                    type = reason, // např. "system_shutdown", "service_stop"
-                    time = DateTime.UtcNow,
-                    user = Environment.UserName,
-                    hostname = Environment.MachineName
-                };
-                // End-point dle původního konceptu
-                string uuid = _config.GetUUID();
-                await _apiClient.PostAsync($"/api/clients/{uuid}/shutdown", data);
-                _logger.Info($"Sent shutdown info to API. Reason: {reason}");
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("Failed to send shutdown info to API.", ex);
-            }
+            SERVICE_STOPPED = 0x00000001,
+            SERVICE_START_PENDING = 0x00000002,
+            SERVICE_STOP_PENDING = 0x00000003,
+            SERVICE_RUNNING = 0x00000004,
+            SERVICE_CONTINUE_PENDING = 0x00000005,
+            SERVICE_PAUSE_PENDING = 0x00000006,
+            SERVICE_PAUSED = 0x00000007,
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct ServiceStatus
+        {
+            public int dwServiceType;
+            public ServiceState dwCurrentState;
+            public int dwControlsAccepted;
+            public int dwWin32ExitCode;
+            public int dwServiceSpecificExitCode;
+            public int dwCheckPoint;
+            public int dwWaitHint;
+        };
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        private static extern bool SetServiceStatus(System.IntPtr handle, ref ServiceStatus serviceStatus);
     }
 }

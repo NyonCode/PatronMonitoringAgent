@@ -18,8 +18,8 @@ namespace PatronMonitoringAgent
 
         public void Stop()
         {
-            //_cts.Cancel();
-            _mainLoop?.Wait();
+            _cts.Cancel();
+            _mainLoop.Wait();
         }
 
         private async Task MainLoop(CancellationToken ct)
@@ -82,7 +82,11 @@ namespace PatronMonitoringAgent
                             last_error = "",
                             drives = provider.GetRequiredService<IDriveMonitor>().GetMappedDrives(),
                             system_monitor = provider.GetRequiredService<ISystemMonitor>().GetCurrentUsage(),
-                            session_monitor = provider.GetRequiredService<ISessionMonitor>().GetCurrentSession()
+                            network_info = provider.GetRequiredService<ISystemMonitor>().GetNetworkInfo(),
+                            /// 
+                            /// TODO: implement session monitoring if needed
+                            /// Used namedPipe for session monitoring, but not implemented in this example
+                            ///session_monitor = provider.GetRequiredService<ISessionMonitor>().GetCurrentSession()
                         };
 
                         var hbResponse = await api.PostAsync($"/api/clients/{config.GetUUID()}/heartbeat", heartbeatData);
