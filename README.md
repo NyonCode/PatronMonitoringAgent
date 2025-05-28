@@ -1,52 +1,52 @@
 # Patron Monitoring Agent
 
-## Pøehled
+## PÅ™ehled
 
-Endpoint Management Software (EMS) je profesionální klientská aplikace pro správu a monitoring koncovıch bodù (PC/serverù) ve firemním prostøedí s podporou více klientù, bezpeènou autentizací, vzdálenımi pøíkazy a auto-updatem. Správa probíhá pøes API na Laravel serveru (PHP).
+Endpoint Management Software (EMS) je profesionÃ¡lnÃ­ klientskÃ¡ aplikace pro sprÃ¡vu a monitoring koncovÃ½ch bodÅ¯ (PC/serverÅ¯) ve firemnÃ­m prostÅ™edÃ­ s podporou vÃ­ce klientÅ¯, bezpeÄnou autentizacÃ­, vzdÃ¡lenÃ½mi pÅ™Ã­kazy a auto-updatem. SprÃ¡va probÃ­hÃ¡ pÅ™es API na Laravel serveru (PHP).
 
 ---
 
-## Hlavní funkce
+## HlavnÃ­ funkce
 
-- **Ovládání pøes Laravel API** (Bearer token, JSON)
-- **Podpora více klientù** (UUID, validace serverem)
+- **OvlÃ¡dÃ¡nÃ­ pÅ™es Laravel API** (Bearer token, JSON)
+- **Podpora vÃ­ce klientÅ¯** (UUID, validace serverem)
 - **Serilog s JSON logy, event log**
-- **ID a log TeamVieweru (rozšiøitelné)**
+- **ID a log TeamVieweru (rozÅ¡iÅ™itelnÃ©)**
 - **IoC, interface-driven design, DI kontejner**
-- **Konfigurace v registrech (AES šifrovanı token, interval)**
+- **Konfigurace v registrech (AES Å¡ifrovanÃ½ token, interval)**
 - **Retry logika pro API**
-- **Watchdog sluba (hlídání agenta i tray aplikace)**
-- **Remote commands (restart, vypnutí, exec, update)**
-- **Detekce a hlášení vypnutí/restartu stanice**
+- **Watchdog sluÅ¾ba (hlÃ­dÃ¡nÃ­ agenta i tray aplikace)**
+- **Remote commands (restart, vypnutÃ­, exec, update)**
+- **Detekce a hlÃ¡Å¡enÃ­ vypnutÃ­/restartu stanice**
 - **Auto-update**
-- **Monitoring mapped network drives (uivatelská session)**
-- **MSI instalátor**
+- **Monitoring mapped network drives (uÅ¾ivatelskÃ¡ session)**
+- **MSI instalÃ¡tor**
 - **Unit testy (NUnit)**
-- **Tray aplikace (stav, ruèní restart, heartbeat pro watchdog)**
-- **Strukturované logy, monitoring, serializované logy (JSON)**
-- **Systémovı monitoring: CPU, GPU, RAM, disky, systémové logy**
-- **Monitoring user session: uivatel, èas, mapped drives, pøístupné cesty**
+- **Tray aplikace (stav, ruÄnÃ­ restart, heartbeat pro watchdog)**
+- **StrukturovanÃ© logy, monitoring, serializovanÃ© logy (JSON)**
+- **SystÃ©movÃ½ monitoring: CPU, GPU, RAM, disky, systÃ©movÃ© logy**
+- **Monitoring user session: uÅ¾ivatel, Äas, mapped drives, pÅ™Ã­stupnÃ© cesty**
 - **API Rate-limit handling**
 - **Extensibility (plugin architektura)**
-- **Bezpeènostní review**
+- **BezpeÄnostnÃ­ review**
 - **Disaster recovery**
 
 ---
 
 ## Architektura
 
-- **Program.cs** – Start, DI kontejner
-- **Interfaces** – IApiClient, IConfigurationProvider, ILoggerService, IRemoteCommandHandler, IUpdateService, IDriveMonitor, IWatchdog, ISystemMonitor, ISessionMonitor
-- **Services** – ApiClient, RegistryConfigurationProvider, SerilogLogger, RemoteCommandHandler, UpdateService, DriveMonitor, WatchdogService, SystemMonitor, SessionMonitor
-- **PluginInterface** – rozšíøení monitoring/remote funkcí
-- **TrayApp** – Windows Forms/WPF tray aplikace
-- **Unit Tests** – NUnit projekt
+- **Program.cs** â€“ Start, DI kontejner
+- **Interfaces** â€“ IApiClient, IConfigurationProvider, ILoggerService, IRemoteCommandHandler, IUpdateService, IDriveMonitor, IWatchdog, ISystemMonitor, ISessionMonitor
+- **Services** â€“ ApiClient, RegistryConfigurationProvider, SerilogLogger, RemoteCommandHandler, UpdateService, DriveMonitor, WatchdogService, SystemMonitor, SessionMonitor
+- **PluginInterface** â€“ rozÅ¡Ã­Å™enÃ­ monitoring/remote funkcÃ­
+- **TrayApp** â€“ Windows Forms/WPF tray aplikace
+- **Unit Tests** â€“ NUnit projekt
 
 ---
 
 ## Konfigurace a registrace
 
-- **Token (AES šifrovanı):** `HKLM\Software\Company\EMS\Token`
+- **Token (AES Å¡ifrovanÃ½):** `HKLM\Software\Company\EMS\Token`
 - **Interval:** `HKLM\Software\Company\EMS\Interval`
 - **UUID klienta:** `HKLM\Software\Company\EMS\UUID`
 
@@ -56,7 +56,7 @@ Endpoint Management Software (EMS) je profesionální klientská aplikace pro správ
 
 ### Autentizace
 
-- Všechny endpointy vyadují Bearer token (`Authorization: Bearer ...`).
+- VÅ¡echny endpointy vyÅ¾adujÃ­ Bearer token (`Authorization: Bearer ...`).
 
 ---
 
@@ -82,7 +82,7 @@ Authorization: Bearer {token}
 }
 ```
 
-**Odpovìï:**
+**OdpovÄ›Ä:**
 ```json
 {
   "status": "ok",
@@ -129,7 +129,7 @@ Authorization: Bearer {token}
 }
 ```
 
-**Odpovìï:**
+**OdpovÄ›Ä:**
 ```json
 {
   "status": "ok",
@@ -155,7 +155,7 @@ Authorization: Bearer {token}
 }
 ```
 
-**Odpovìï:**
+**OdpovÄ›Ä:**
 ```json
 {
   "status": "ok"
@@ -166,7 +166,7 @@ Authorization: Bearer {token}
 
 ### 4. Remote commands
 
-- Remote commands jsou vráceny v odpovìdi serveru v poli `remote_commands`:
+- Remote commands jsou vrÃ¡ceny v odpovÄ›di serveru v poli `remote_commands`:
 
 ```json
 {
@@ -181,9 +181,9 @@ Authorization: Bearer {token}
 
 ---
 
-### 5. Hlášení vypnutí/restartu stanice
+### 5. HlÃ¡Å¡enÃ­ vypnutÃ­/restartu stanice
 
-Pøi vypnutí nebo restartu poèítaèe agent sluba odešle na server informaci o události:
+PÅ™i vypnutÃ­ nebo restartu poÄÃ­taÄe agent sluÅ¾ba odeÅ¡le na server informaci o udÃ¡losti:
 
 ```
 POST /api/clients/{uuid}/shutdown
@@ -198,60 +198,60 @@ Authorization: Bearer {token}
 }
 ```
 
-**Odpovìï:**
+**OdpovÄ›Ä:**
 ```json
 {
   "status": "ok"
 }
 ```
 
-Poznámka: Typ události (`type`) mùe bıt napø. `"system_shutdown"`, `"system_restart"` nebo `"service_stop"` dle zjištìného dùvodu.
+PoznÃ¡mka: Typ udÃ¡losti (`type`) mÅ¯Å¾e bÃ½t napÅ™. `"system_shutdown"`, `"system_restart"` nebo `"service_stop"` dle zjiÅ¡tÄ›nÃ©ho dÅ¯vodu.
 
 ---
 
 ### 6. API Rate-limit handling
 
-- Pokud API vrátí HTTP 429 (Too Many Requests), klient:
-  - Respektuje hlavièku `Retry-After` (pokud je pøítomna).
-  - Pokud chybí, pouije exponenciální back-off.
-  - Události o rate-limitu loguje vèetnì endpointu, èasu, do Serilog logu.
-- Pokud je pøekroèen limit opakovanì, klient automaticky zvıší interval heartbeat a log uploadù dle konfigurace serveru nebo pøednastavenıch pravidel.
+- Pokud API vrÃ¡tÃ­ HTTP 429 (Too Many Requests), klient:
+  - Respektuje hlaviÄku `Retry-After` (pokud je pÅ™Ã­tomna).
+  - Pokud chybÃ­, pouÅ¾ije exponenciÃ¡lnÃ­ back-off.
+  - UdÃ¡losti o rate-limitu loguje vÄetnÄ› endpointu, Äasu, do Serilog logu.
+- Pokud je pÅ™ekroÄen limit opakovanÄ›, klient automaticky zvÃ½Å¡Ã­ interval heartbeat a log uploadÅ¯ dle konfigurace serveru nebo pÅ™ednastavenÃ½ch pravidel.
 
 ---
 
 ### 7. Disaster recovery
 
-- Pokud není server dostupnı:
-  - Klient data (logy, monitoring) ukládá lokálnì (do šifrovaného souboru).
-  - Po obnovení spojení dojde k dávkovému uploadu.
-  - Kritické incidenty (napø. restart watchdogem) jsou nahlášeny po obnovì spojení.
-  - Watchdog restartuje slubu pøi pádu/hangu.
-  - Monost lokální notifikace (tray app, event log, volitelnì e-mail/SMS správci).
+- Pokud nenÃ­ server dostupnÃ½:
+  - Klient data (logy, monitoring) uklÃ¡dÃ¡ lokÃ¡lnÄ› (do Å¡ifrovanÃ©ho souboru).
+  - Po obnovenÃ­ spojenÃ­ dojde k dÃ¡vkovÃ©mu uploadu.
+  - KritickÃ© incidenty (napÅ™. restart watchdogem) jsou nahlÃ¡Å¡eny po obnovÄ› spojenÃ­.
+  - Watchdog restartuje sluÅ¾bu pÅ™i pÃ¡du/hangu.
+  - MoÅ¾nost lokÃ¡lnÃ­ notifikace (tray app, event log, volitelnÄ› e-mail/SMS sprÃ¡vci).
 
 ---
 
 ### 8. Extensibility
 
-- Kadı monitoring nebo remote modul je plugin (implementuje interface, DI).
-- API/JSON umoòuje rozšiøovat pole bez narušení zpìtné kompatibility.
-- Tray app, watchdog a hlavní sluba komunikují pøes sdílené rozhraní.
-- Nové typy remote commandu lze pøidat na server i klient, ani by starší klient selhal (neznámé typy ignoruje).
+- KaÅ¾dÃ½ monitoring nebo remote modul je plugin (implementuje interface, DI).
+- API/JSON umoÅ¾Åˆuje rozÅ¡iÅ™ovat pole bez naruÅ¡enÃ­ zpÄ›tnÃ© kompatibility.
+- Tray app, watchdog a hlavnÃ­ sluÅ¾ba komunikujÃ­ pÅ™es sdÃ­lenÃ© rozhranÃ­.
+- NovÃ© typy remote commandu lze pÅ™idat na server i klient, aniÅ¾ by starÅ¡Ã­ klient selhal (neznÃ¡mÃ© typy ignoruje).
 
 ---
 
-### 9. Bezpeènostní review
+### 9. BezpeÄnostnÃ­ review
 
-- Token a citlivá data v registrech pouze šifrovanì (AES).
-- AES klíè chránìn (obfuscace, DPAPI).
-- Remote exec omezenı whitelistem pøíkazù, volitelnì jen pro adminy.
-- Logování pokusù o neautorizovanı pøístup, selhání autentizace.
-- Update balíèky jsou podepsané, kontrola hash/signatury.
-- Všechna spojení pouze pøes HTTPS s validací certifikátu.
-- Pravidelnı bezpeènostní review a penetraèní testy.
+- Token a citlivÃ¡ data v registrech pouze Å¡ifrovanÄ› (AES).
+- AES klÃ­Ä chrÃ¡nÄ›n (obfuscace, DPAPI).
+- Remote exec omezenÃ½ whitelistem pÅ™Ã­kazÅ¯, volitelnÄ› jen pro adminy.
+- LogovÃ¡nÃ­ pokusÅ¯ o neautorizovanÃ½ pÅ™Ã­stup, selhÃ¡nÃ­ autentizace.
+- Update balÃ­Äky jsou podepsanÃ©, kontrola hash/signatury.
+- VÅ¡echna spojenÃ­ pouze pÅ™es HTTPS s validacÃ­ certifikÃ¡tu.
+- PravidelnÃ½ bezpeÄnostnÃ­ review a penetraÄnÃ­ testy.
 
 ---
 
-## Pøíklady rozhraní a slueb (C#)
+## PÅ™Ã­klady rozhranÃ­ a sluÅ¾eb (C#)
 
 ```csharp
 public interface IApiClient
@@ -292,7 +292,7 @@ public interface ISessionMonitor
 
 ---
 
-## Serilog nastavení
+## Serilog nastavenÃ­
 
 ```csharp
 Log.Logger = new LoggerConfiguration()
@@ -303,34 +303,34 @@ Log.Logger = new LoggerConfiguration()
 
 ---
 
-## MSI instalátor
+## MSI instalÃ¡tor
 
 - WiX Toolset nebo Advanced Installer.
-- Silent install, zápis registry, obnovitelné konfigurace.
+- Silent install, zÃ¡pis registry, obnovitelnÃ© konfigurace.
 
 ---
 
 ## Unit testy (NUnit)
 
-- Testy pro: API komunikaci, šifrování tokenu, monitoring, retry logiku, remote command parser.
+- Testy pro: API komunikaci, Å¡ifrovÃ¡nÃ­ tokenu, monitoring, retry logiku, remote command parser.
 
 ---
 
-## Vıvojovı diagram
+## VÃ½vojovÃ½ diagram
 
 ```mermaid
 flowchart TD
-    Sluba -- heartbeat/log --> LaravelAPI
-    LaravelAPI -- remote_commands --> Sluba
-    Sluba -- mapped drives, status, session info --> TrayApp
-    Sluba -- Watchdog --> Watchdog
-    Sluba -- systém/logy --> LaravelAPI
-    Sluba -- monitoring CPU/RAM/GPU/Disk --> LaravelAPI
-    Sluba -- userSession monitoring --> LaravelAPI
+    SluÅ¾ba -- heartbeat/log --> LaravelAPI
+    LaravelAPI -- remote_commands --> SluÅ¾ba
+    SluÅ¾ba -- mapped drives, status, session info --> TrayApp
+    SluÅ¾ba -- Watchdog --> Watchdog
+    SluÅ¾ba -- systÃ©m/logy --> LaravelAPI
+    SluÅ¾ba -- monitoring CPU/RAM/GPU/Disk --> LaravelAPI
+    SluÅ¾ba -- userSession monitoring --> LaravelAPI
     UpdateService -- update check --> LaravelAPI
-    MSI -- registry/config --> Sluba
-    Sluba -- pluginy/extenze --> PluginInterface
-    Sluba -- offline logy --> Disk
+    MSI -- registry/config --> SluÅ¾ba
+    SluÅ¾ba -- pluginy/extenze --> PluginInterface
+    SluÅ¾ba -- offline logy --> Disk
     Disk -- reconnect --> LaravelAPI
 ```
 
@@ -338,11 +338,11 @@ flowchart TD
 
 ## Kontakt a podpora
 
-- Pro rozšíøení, support èi implementaci novıch funkcí kontaktujte autora projektu.
+- Pro rozÅ¡Ã­Å™enÃ­, support Äi implementaci novÃ½ch funkcÃ­ kontaktujte autora projektu.
 
 ---
 
-## Poznámky
+## PoznÃ¡mky
 
-- API lze dále rozšiøovat napø. o audit logy, inventarizaci SW/HW, další monitoring pluginy.
-- Pro detailní pøíklady kódu nebo konkrétní èásti architektury kontaktujte autora nebo si vyádejte konkrétní ukázky.
+- API lze dÃ¡le rozÅ¡iÅ™ovat napÅ™. o audit logy, inventarizaci SW/HW, dalÅ¡Ã­ monitoring pluginy.
+- Pro detailnÃ­ pÅ™Ã­klady kÃ³du nebo konkrÃ©tnÃ­ ÄÃ¡sti architektury kontaktujte autora nebo si vyÅ¾Ã¡dejte konkrÃ©tnÃ­ ukÃ¡zky.
