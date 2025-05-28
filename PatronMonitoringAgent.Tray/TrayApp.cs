@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Threading;
 using System.Windows.Forms;
@@ -18,10 +19,16 @@ namespace PatronMonitoringAgent.Tray
         public TrayApplicationContext()
         {
             var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add("Zobraz stav", null, (s, e) => ShowStatus());
-            contextMenu.Items.Add("Restartovat agenta", null, (s, e) => RestartAgent());
-            contextMenu.Items.Add(new ToolStripSeparator());
-            contextMenu.Items.Add("Konec", null, (s, e) => ExitTray());
+            //contextMenu.Items.Add("Zobraz stav", null, (s, e) => ShowStatus());
+
+            if (IsAdministrator())
+            {
+                contextMenu.Items.Add("Restartovat službu", null, (s, e) => RestartAgent());
+                contextMenu.Items.Add(new ToolStripSeparator());
+                contextMenu.Items.Add("Konec", null, (s, e) => ExitTray());
+            }
+
+            
 
             _notifyIcon = new NotifyIcon
             {
@@ -64,7 +71,7 @@ namespace PatronMonitoringAgent.Tray
             string status = "Agent běží v pořádku.\n" +
                             $"Heartbeat: {DateTime.UtcNow:HH:mm:ss}\n" +
                             $"User: {Environment.UserName}";
-            MessageBox.Show(status, "Stav EMS agenta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(status, "Stav agenta", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void RestartAgent()
@@ -88,6 +95,13 @@ namespace PatronMonitoringAgent.Tray
             {
                 MessageBox.Show("Chyba při restartu služby:\n" + ex.Message, "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private static bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         private void ExitTray()

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
 using PatronMonitoringAgent.Common;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PatronMonitoringAgent
 {
@@ -31,8 +33,53 @@ namespace PatronMonitoringAgent
         // Collect structured logs for upload
         public static List<object> CollectLogs()
         {
-            // For demo: in reality, parse the JSON file and return objects
-            return new List<object>();
+            var logList = new List<object>();
+
+            try
+            {
+                var logDirectory = "logs";
+                if (!Directory.Exists(logDirectory))
+                    return logList;
+
+                var logFiles = Directory.GetFiles(logDirectory, "*.json");
+
+                foreach (var file in logFiles)
+                {
+                    try
+                    {
+                        // Otevřít soubor s povolením sdíleného čtení a zápisu
+                        using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        using (var sr = new StreamReader(fs))
+                        {
+                            string line;
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                                try
+                                {
+                                    var json = JObject.Parse(line);
+                                    logList.Add(json);
+                                }
+                                catch
+                                {
+                                    Log.Information($"Nepodařilo se naparsovat řádek logu: {line}");
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warning(ex, $"Nepodařilo se načíst log file: {file}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Chyba při načítání logů.");
+            }
+
+            return logList;
         }
     }
 }

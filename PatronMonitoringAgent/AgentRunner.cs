@@ -1,15 +1,25 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PatronMonitoringAgent.Common;
+using Serilog;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using PatronMonitoringAgent.Common;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace PatronMonitoringAgent
 {
+    
     public class AgentRunner
     {
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
         private Task _mainLoop;
+
+
+        private readonly IServiceProvider provider;
+        public AgentRunner(IServiceProvider provider)
+        {
+            this.provider = provider;
+        }
 
         public void StartAsync()
         {
@@ -24,25 +34,15 @@ namespace PatronMonitoringAgent
 
         private async Task MainLoop(CancellationToken ct)
         {
-            var services = new ServiceCollection();
+            var logger = this.provider.GetRequiredService<ILoggerService>();
+            var config = this.provider.GetRequiredService<IConfigurationProvider>();
+            var api = this.provider.GetRequiredService<IApiClient>();
+            var remoteCmd = this.provider.GetRequiredService<IRemoteCommandHandler>();
+            var update = this.provider.GetRequiredService<IUpdateService>();
+            var systemMonitor = this.provider.GetRequiredService<ISystemMonitor>();
+            var driveMonitor = this.provider.GetRequiredService<IDriveMonitor>();
 
-            services.AddSingleton<IConfigurationProvider, RegistryConfigurationProvider>();
-            services.AddSingleton<ILoggerService, SerilogLoggerService>();
-            services.AddSingleton<IApiClient, LaravelApiClient>();
-            services.AddSingleton<IDriveMonitor, DriveMonitor>();
-            services.AddSingleton<ISystemMonitor, SystemMonitor>();
-            services.AddSingleton<ISessionMonitor, SessionMonitor>();
-            services.AddSingleton<IRemoteCommandHandler, RemoteCommandHandler>();
-            services.AddSingleton<IUpdateService, UpdateService>();
-
-            var provider = services.BuildServiceProvider();
-            var logger = provider.GetRequiredService<ILoggerService>();
-            var config = provider.GetRequiredService<IConfigurationProvider>();
-            var api = provider.GetRequiredService<IApiClient>();
-            var remoteCmd = provider.GetRequiredService<IRemoteCommandHandler>();
-            var update = provider.GetRequiredService<IUpdateService>();
-
-            logger.Info("PatronMonitoringAgent service running.");
+            logger.Info("Patron Monitoring Agent service running.");
 
 
             // Registration
@@ -89,7 +89,7 @@ namespace PatronMonitoringAgent
                             ///session_monitor = provider.GetRequiredService<ISessionMonitor>().GetCurrentSession()
                         };
 
-                        var hbResponse = await api.PostAsync($"/api/clients/{config.GetUUID()}/heartbeat", heartbeatData);
+                        var hbResponse = await api.PostAsync($"/api/clients/{config.GetUUID()}/heartbeat", heartbeatData, ct);
 
                         if (hbResponse.RemoteCommands != null)
                             await remoteCmd.HandleCommandsAsync(hbResponse.RemoteCommands);
@@ -100,7 +100,7 @@ namespace PatronMonitoringAgent
                         // Upload logs (structured, system logs)
                         var logs = SerilogLoggerService.CollectLogs();
                         var syslogs = provider.GetRequiredService<ISystemMonitor>().GetSystemLogs();
-                        await api.PostAsync($"/api/clients/{config.GetUUID()}/log", new { log = logs, system_logs = syslogs });
+                        await api.PostAsync($"/api/clients/{config.GetUUID()}/logs", new { log = logs, system_logs = syslogs }, ct);
                     }
                     catch (Exception ex)
                     {
@@ -108,6 +108,14 @@ namespace PatronMonitoringAgent
                     }
                     await Task.Delay(config.GetInterval() * 1000, ct);
                 }
+        }
+
+        public async Task OnShutdown(CancellationToken ct)
+        {
+            var config = provider.GetRequiredService<IConfigurationProvider>();
+            var api = provider.GetRequiredService<IApiClient>();
+
+            await api.PostAsync($"/api/clients/{config.GetUUID()}/shutdown", new { status = "shutdown"});
         }
     }
 }
