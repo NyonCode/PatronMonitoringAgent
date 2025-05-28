@@ -23,6 +23,26 @@ namespace PatronMonitoringAgent.Common
         void SaveInterval(int? interval);
     }
 
+    public interface IConfigurationService
+    {
+        string GetToken();
+        string GetUUID();
+        bool UUIDExist();
+        bool TokenExist();
+        bool IntervalExist();
+        int GetInterval();
+        void SaveToken(string token);
+        void SaveInterval(int? interval);
+
+        /// <summary>
+        /// Updates the configuration from the source (e.g., registry, file, etc.).
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains a boolean indicating whether the configuration was successfully updated.
+        /// </returns>
+        Task UpdateConfigurationAsync();
+    }
+
     public interface ILoggerService
     {
         void Info(string message);
