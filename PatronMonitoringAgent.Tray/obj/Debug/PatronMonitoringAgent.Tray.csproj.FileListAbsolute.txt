@@ -1,0 +1,12 @@
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\bin\Debug\PatronMonitoringAgent.Tray.exe.config
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\bin\Debug\PatronMonitoringAgent.Tray.exe
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\bin\Debug\PatronMonitoringAgent.Tray.pdb
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\bin\Debug\PatronMonitoringAgent.Common.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\bin\Debug\PatronMonitoringAgent.Common.pdb
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMonitoringAgent.Tray.csproj.AssemblyReference.cache
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMonitoringAgent.Tray.Properties.Resources.resources
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMonitoringAgent.Tray.csproj.GenerateResource.cache
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMonitoringAgent.Tray.csproj.CoreCompileInputs.cache
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMo.DFA77BB9.Up2Date
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMonitoringAgent.Tray.exe
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Tray\obj\Debug\PatronMonitoringAgent.Tray.pdb

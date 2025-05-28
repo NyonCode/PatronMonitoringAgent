@@ -1,0 +1,6 @@
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\PatronMonitoringAgent.Common.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\PatronMonitoringAgent.Common.pdb
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.csproj.AssemblyReference.cache
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.csproj.CoreCompileInputs.cache
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.pdb

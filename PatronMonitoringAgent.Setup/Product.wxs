@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define PatronMonitoringAgent_TargetDir=$(var.PatronMonitoringAgent.TargetDir)?>
+  <?define PatronMonitoringAgent_Tray_TargetDir=$(var.PatronMonitoringAgent.Tray.TargetDir)?><?define PatronMonitoringAgent.Tray_TargetDir=$(var.PatronMonitoringAgent.Tray.TargetDir)?>
+
+  <Product Id="*" Name="Patron Monitoring Agent" Language="1033" Version="1.0.0.1" Manufacturer="NyonCode" UpgradeCode="bbefc47a-52fe-466f-bbac-369a4f4c8690">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+
+    <Feature Id="ProductFeature" Title="PatronMonitoringAgent.Setup" Level="1">
+      <ComponentGroupRef Id="ProgramFilesFolder_files" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+	      <Directory Id="TARGETDIR" Name="SourceDir">
+		      <Directory Id="ProgramFilesFolder">
+			      <Directory Id="NyonCode" Name="NyonCode">
+				      <Directory Id="INSTALLFOLDER" Name="Patron Monitoring Agent" />
+			      </Directory>
+		      </Directory>
+	      </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProgramFilesFolder_files" Directory="INSTALLFOLDER">
+      <Component Id="PatronMonitoringAgent.exe" Guid="13620ffc-2486-404e-be40-fa1c6b63b57b">
+        <File Id="PatronMonitoringAgent.exe" Name="PatronMonitoringAgent.exe" Source="$(var.PatronMonitoringAgent_TargetDir)PatronMonitoringAgent.exe" KeyPath="yes" />
+		  
+        <!-- Můžeš zde přidat ServiceInstall a ServiceControl pro instalaci služby -->
+        <ServiceInstall Id="PatronMonitoringAgentService" Type="ownProcess" Name="PatronMonitoringAgent" DisplayName="Patron Monitoring Agent" Description="Monitoring a sprava endpointu" Start="auto" Account="LocalSystem" ErrorControl="normal" />
+        <ServiceControl Id="StartService" Name="PatronMonitoringAgent" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+      </Component>
+
+		<Component Id="PatronMonitoringAgentTrayExe" Guid="05df3542-7616-4ff3-bb4c-0fe0f4a2a98f">
+			<!-- Autostart pro všechny uživatele přes registry -->
+			<RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Run" Action="createAndRemoveOnUninstall">
+				<RegistryValue Type="string" Name="PatronMonitoringAgentTray" Value="[INSTALLFOLDER]PatronMonitoringAgent.Tray.exe" KeyPath="no" />
+			</RegistryKey>
+		</Component>
+
+		<Component Id="System.Threading.Channels.dll" Guid="5dc090d5-18f8-4158-887a-eb6202b9bae1">
+        <File Id="System.Threading.Channels.dll" Name="System.Threading.Channels.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Threading.Channels.dll" />
+      </Component>
+      <Component Id="System.Buffers.dll" Guid="6dcb50a2-858b-4422-9c10-e345c19a39d0">
+        <File Id="System.Buffers.dll" Name="System.Buffers.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Buffers.dll" />
+      </Component>
+      <Component Id="System.Numerics.Vectors.dll" Guid="f607c456-c09d-42cc-9555-71e6f277b736">
+        <File Id="System.Numerics.Vectors.dll" Name="System.Numerics.Vectors.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Numerics.Vectors.dll" />
+      </Component>
+      <Component Id="System.Diagnostics.DiagnosticSource.dll" Guid="40e977bc-6b6e-42f7-9aee-7f338a395b50">
+        <File Id="System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Diagnostics.DiagnosticSource.dll" />
+      </Component>
+      <Component Id="System.Memory.dll" Guid="64523ba5-85e3-40fd-86bd-4585bec58435">
+        <File Id="System.Memory.dll" Name="System.Memory.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Memory.dll" />
+      </Component>
+      <Component Id="Polly.Core.dll" Guid="9034f24c-2b0b-46fa-948b-c52cf8fc7ab7">
+        <File Id="Polly.Core.dll" Name="Polly.Core.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Polly.Core.dll" />
+      </Component>
+      <Component Id="HidSharp.dll" Guid="d48bd0fe-3f6c-4f46-b191-f0941f25dd42">
+        <File Id="HidSharp.dll" Name="HidSharp.dll" Source="$(var.PatronMonitoringAgent_TargetDir)HidSharp.dll" />
+      </Component>
+      <Component Id="Microsoft.Bcl.TimeProvider.dll" Guid="6941864b-83a2-457d-a2b5-b8f05d3d77e5">
+        <File Id="Microsoft.Bcl.TimeProvider.dll" Name="Microsoft.Bcl.TimeProvider.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Microsoft.Bcl.TimeProvider.dll" />
+      </Component>
+      <Component Id="System.Runtime.CompilerServices.Unsafe.dll" Guid="48728b4b-97a7-4c68-829c-1703e3ce48a8">
+        <File Id="System.Runtime.CompilerServices.Unsafe.dll" Name="System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Runtime.CompilerServices.Unsafe.dll" />
+      </Component>
+      <Component Id="System.Threading.Tasks.Extensions.dll" Guid="381da257-6e85-4e47-89b8-126a7e001b52">
+        <File Id="System.Threading.Tasks.Extensions.dll" Name="System.Threading.Tasks.Extensions.dll" Source="$(var.PatronMonitoringAgent_TargetDir)System.Threading.Tasks.Extensions.dll" />
+      </Component>
+      <Component Id="Microsoft.Bcl.AsyncInterfaces.dll" Guid="72e73c51-3535-4a34-b908-5499b7f833e1">
+        <File Id="Microsoft.Bcl.AsyncInterfaces.dll" Name="Microsoft.Bcl.AsyncInterfaces.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Microsoft.Bcl.AsyncInterfaces.dll" />
+      </Component>
+      <Component Id="Newtonsoft.Json.dll" Guid="21f87f04-7d66-445b-90f6-79ab9313bbb7">
+        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Newtonsoft.Json.dll" />
+      </Component>
+      <Component Id="Serilog.Sinks.EventLog.dll" Guid="1e3fcbb0-c15f-440a-bec7-b95b75846403">
+        <File Id="Serilog.Sinks.EventLog.dll" Name="Serilog.Sinks.EventLog.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Serilog.Sinks.EventLog.dll" />
+      </Component>
+      <Component Id="Serilog.Sinks.File.dll" Guid="5a8f5a11-f4f4-448a-b38a-425b3c0b46b2">
+        <File Id="Serilog.Sinks.File.dll" Name="Serilog.Sinks.File.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Serilog.Sinks.File.dll" />
+      </Component>
+      <Component Id="Serilog.dll" Guid="44504fbc-21b0-4bf0-a320-7fedd50f988e">
+        <File Id="Serilog.dll" Name="Serilog.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Serilog.dll" />
+      </Component>
+      <Component Id="LibreHardwareMonitorLib.dll" Guid="5183ba23-51d6-4f75-b18c-16cb825ce1d2">
+        <File Id="LibreHardwareMonitorLib.dll" Name="LibreHardwareMonitorLib.dll" Source="$(var.PatronMonitoringAgent_TargetDir)LibreHardwareMonitorLib.dll" />
+      </Component>
+      <Component Id="Polly.dll" Guid="33f0a071-f903-4d51-9535-5bbf3e2587f5">
+        <File Id="Polly.dll" Name="Polly.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Polly.dll" />
+      </Component>
+      <Component Id="Microsoft.Extensions.DependencyInjection.dll" Guid="6a60579a-702e-4739-8e43-d8be379acaca">
+        <File Id="Microsoft.Extensions.DependencyInjection.dll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Microsoft.Extensions.DependencyInjection.dll" />
+      </Component>
+      <Component Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Guid="59fa0f32-ce45-4cab-9694-8146e2529dda">
+        <File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.PatronMonitoringAgent_TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+      </Component>
+      <Component Id="PatronMonitoringAgent.Common.dll" Guid="275d93f2-6a9e-4771-8065-285b4628890c">
+        <File Id="PatronMonitoringAgent.Common.dll" Name="PatronMonitoringAgent.Common.dll" Source="$(var.PatronMonitoringAgent_TargetDir)PatronMonitoringAgent.Common.dll" />
+      </Component>
+      <Component Id="PatronMonitoringAgent.exe.config" Guid="19045986-fb6b-42a8-b337-0a2f1a36d882">
+        <File Id="PatronMonitoringAgent.exe.config" Name="PatronMonitoringAgent.exe.config" Source="$(var.PatronMonitoringAgent_TargetDir)PatronMonitoringAgent.exe.config" />
+      </Component>
+      <Component Id="PatronMonitoringAgent.Tray.exe" Guid="4d0285d1-9dd8-42a3-b52f-67b424afa81a">
+        <File Id="PatronMonitoringAgent.Tray.exe" Name="PatronMonitoringAgent.Tray.exe" Source="$(var.PatronMonitoringAgent.Tray_TargetDir)PatronMonitoringAgent.Tray.exe" />
+      </Component>
+      <Component Id="PatronMonitoringAgent.Tray.exe.config" Guid="0e0795a1-7012-4bdf-bb58-1353be8a2241">
+        <File Id="PatronMonitoringAgent.Tray.exe.config" Name="PatronMonitoringAgent.Tray.exe.config" Source="$(var.PatronMonitoringAgent.Tray_TargetDir)PatronMonitoringAgent.Tray.exe.config" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
