@@ -362,7 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-
+# Ignore build output directories
 PatronMonitoringAgent/bin/
 PatronMonitoringAgent.Tray/bin/
 PatronMonitoringAgent.Tests/bin/
