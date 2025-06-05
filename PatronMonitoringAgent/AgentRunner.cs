@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PatronMonitoringAgent.Common;
 using Serilog;
+using Serilog.Core;
 using System;
 using System.Linq;
 using System.Threading;
@@ -12,6 +13,8 @@ namespace PatronMonitoringAgent
     public class AgentRunner
     {
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
+        private ILoggerService logger;
+        //private WatchdogService _watchdog;
         private Task _mainLoop;
 
 
@@ -19,10 +22,14 @@ namespace PatronMonitoringAgent
         public AgentRunner(IServiceProvider provider)
         {
             this.provider = provider;
+            this.logger = provider.GetRequiredService<ILoggerService>();
         }
 
         public void StartAsync()
         {
+            //_watchdog = new WatchdogService(logger);
+            //_watchdog.Start();
+
             _mainLoop = Task.Run(() => MainLoop(_cts.Token));
         }
 
@@ -30,11 +37,11 @@ namespace PatronMonitoringAgent
         {
             _cts.Cancel();
             _mainLoop.Wait();
+            //_watchdog.Stop();
         }
 
         private async Task MainLoop(CancellationToken ct)
         {
-            var logger = this.provider.GetRequiredService<ILoggerService>();
             var config = this.provider.GetRequiredService<IConfigurationProvider>();
             var api = this.provider.GetRequiredService<IApiClient>();
             var remoteCmd = this.provider.GetRequiredService<IRemoteCommandHandler>();
@@ -110,7 +117,7 @@ namespace PatronMonitoringAgent
                 }
         }
 
-        public async Task OnShutdown(CancellationToken ct)
+        public async Task OnShutdown()
         {
             var config = provider.GetRequiredService<IConfigurationProvider>();
             var api = provider.GetRequiredService<IApiClient>();

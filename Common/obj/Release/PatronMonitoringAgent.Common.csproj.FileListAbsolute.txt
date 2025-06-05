@@ -1,6 +1,16 @@
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\PatronMonitoringAgent.Common.dll.config
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\PatronMonitoringAgent.Common.dll
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\PatronMonitoringAgent.Common.pdb
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\Microsoft.Bcl.TimeProvider.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\System.Threading.Tasks.Extensions.dll
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\Microsoft.Bcl.TimeProvider.xml
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\bin\Release\System.Threading.Tasks.Extensions.xml
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.csproj.AssemblyReference.cache
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.csproj.CoreCompileInputs.cache
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMo.2A52CE08.Up2Date
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.dll
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\Common\obj\Release\PatronMonitoringAgent.Common.pdb

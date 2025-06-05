@@ -23,8 +23,8 @@ C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.Threading.Channels.dll
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.Threading.Tasks.Extensions.dll
-C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.ValueTuple.dll
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\PatronMonitoringAgent.Common.pdb
+C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\PatronMonitoringAgent.Common.dll.config
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\HidSharp.pdb
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\HidSharp.xml
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\LibreHardwareMonitorLib.xml
@@ -48,10 +48,8 @@ C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.Threading.Channels.xml
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.Threading.Tasks.Extensions.xml
-C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\bin\Release\System.ValueTuple.xml
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Release\PatronMonitoringAgent.csproj.AssemblyReference.cache
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Release\PatronMonitoringAgent.csproj.CoreCompileInputs.cache
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Release\PatronMo.3675F31D.Up2Date
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Release\PatronMonitoringAgent.exe
 C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Release\PatronMonitoringAgent.pdb
-C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent\obj\Release\PatronMonitoringAgent.exe.config

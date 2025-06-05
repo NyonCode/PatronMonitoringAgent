@@ -15,7 +15,7 @@ namespace PatronMonitoringAgent
         /// <summary>
         /// Hlavní vstupní bod aplikace.
         /// </summary>
-        static async Task Main()
+        static void Main()
         {
             var serviceProvider = ConfigureServices();
 
@@ -26,7 +26,7 @@ namespace PatronMonitoringAgent
                 runner.StartAsync();
                 Console.WriteLine("Running... Press Enter to exit.");
                 Console.ReadLine();
-                runner.Stop ();
+                runner.Stop();
             }
             else
             {

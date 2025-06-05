@@ -1,7 +1,0 @@
-C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Setup\bin\Release\cab1.cab
-C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Setup\bin\Release\PatronMonitoringAgent.Setup.msi
-C:\Users\Ondra\source\repos\NyonCode\PatronMonitoringAgent\PatronMonitoringAgent.Setup\bin\Release\PatronMonitoringAgent.Setup.wixpdb
-obj\Release\Product.wixobj
-obj\Release\PatronMonitoringAgent.Setup.wixproj.BindContentsFileListnull.txt
-obj\Release\PatronMonitoringAgent.Setup.wixproj.BindOutputsFileListnull.txt
-obj\Release\PatronMonitoringAgent.Setup.wixproj.BindBuiltOutputsFileListnull.txt

@@ -40,6 +40,7 @@ namespace PatronMonitoringAgent
             serviceStatus.dwControlsAccepted = 0x00000001; // SERVICE_ACCEPT_STOP
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOP_PENDING;
             serviceStatus.dwWaitHint = 100000;
+
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             // Update the service state to Stopped.
@@ -53,7 +54,7 @@ namespace PatronMonitoringAgent
         {
             if (_runner != null)
             {
-                _runner?.OnShutdown(CancellationToken.None);
+                _runner?.OnShutdown();
                 OnStop();
             }
 

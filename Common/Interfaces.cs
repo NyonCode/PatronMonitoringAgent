@@ -80,4 +80,12 @@ namespace PatronMonitoringAgent.Common
     {
         SessionInfo GetCurrentSession();
     }
+
+    public interface IWatchdogService
+    {
+        void Start();
+        void Stop();
+        bool IsRunning { get; }
+        //event EventHandler<WatchdogEventArgs> OnHeartbeat;
+    }
 }

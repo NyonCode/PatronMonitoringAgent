@@ -76,7 +76,7 @@
             Gets the elapsed time since the <paramref name="startingTimestamp"/> value retrieved using <see cref="M:System.TimeProvider.GetTimestamp"/>.
             </summary>
             <param name="startingTimestamp">The timestamp marking the beginning of the time period.</param>
-            <returns>A <see cref="T:System.TimeSpan"/> for the elapsed time between the starting timestamp and the time of this call./></returns>
+            <returns>A <see cref="T:System.TimeSpan"/> for the elapsed time between the starting timestamp and the time of this call.</returns>
         </member>
         <member name="M:System.TimeProvider.CreateTimer(System.Threading.TimerCallback,System.Object,System.TimeSpan,System.TimeSpan)">
             <summary>Creates a new <see cref="T:System.Threading.ITimer"/> instance, using <see cref="T:System.TimeSpan"/> values to measure time intervals.</summary>
@@ -289,7 +289,7 @@
         </member>
         <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
             <summary>
-            Indicates the user is suppling a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
+            Indicates the user is supplying a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
             </summary>
         </member>
         <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
@@ -390,7 +390,7 @@
         <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
             <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
             <param name="returnValue">
-            The return value condition. If the method returns this value, the associated parameter will not be null.
+            The return value condition. If the method returns this value, the associated field or property member will not be null.
             </param>
             <param name="member">
             The field or property member that is promised to be not-null.
@@ -399,7 +399,7 @@
         <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
             <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
             <param name="returnValue">
-            The return value condition. If the method returns this value, the associated parameter will not be null.
+            The return value condition. If the method returns this value, the associated field and property members will not be null.
             </param>
             <param name="members">
             The list of field and property members that are promised to be not-null.

@@ -10,8 +10,9 @@
 
 namespace PatronMonitoringAgent.Tray.Properties {
     using System;
-    
-    
+    using System.Drawing;
+
+
     /// <summary>
     ///   Třída prostředků se silnými typy pro vyhledávání lokalizovaných řetězců atp.
     /// </summary>
@@ -31,7 +32,9 @@ namespace PatronMonitoringAgent.Tray.Properties {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-        
+
+        public static Icon AppIcon { get; internal set; }
+
         /// <summary>
         ///   Vrací instanci ResourceManager uloženou v mezipaměti použitou touto třídou.
         /// </summary>

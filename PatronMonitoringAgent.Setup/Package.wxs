@@ -1,0 +1,21 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Package Id="PatronMonitoringAgent" Name="Patron Monitoring Agent" Manufacturer="NyonCode" Version="1.0.0.0" Language="1033" UpgradeStrategy="majorUpgrade" Scope="perMachine" UpgradeCode="8E19EAFC-E56B-44AF-8445-24CD1FD9F8C0" Compressed="yes" InstallerVersion="500"> 
+		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+
+		<!-- Ovládací panel – ikona -->
+		<Icon Id="AppIcon" SourceFile="$(var.PatronMonitoringAgent.Tray.TargetDir)icon.ico" />
+		<Property Id="ARPPRODUCTICON" Value="AppIcon" />
+
+		<Property Id="ARPCONTACT" Value="info@nyoncode.cz" />
+		<Property Id="ARPURLINFOABOUT" Value="https://nyoncode.cz" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+		
+		<Feature Id="Main">
+			<ComponentGroupRef Id="CommonComponents" />
+			<ComponentGroupRef Id="ServiceComponents" />
+			<ComponentGroupRef Id="TrayComponents" />
+		</Feature>
+  </Package>
+</Wix>
