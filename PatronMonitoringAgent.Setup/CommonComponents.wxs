@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+	  <ComponentGroup Id="CommonComponents" Directory="INSTALLFOLDER">
+			  <Component Id="cmp_Common_DLL" Guid="F9A6BDE6-3953-4539-A381-7740FD608FCF">
+				  <File Id="fil_Common_DLL" Source="$(var.PatronMonitoringAgent.Common.TargetDir)PatronMonitoringAgent.Common.dll" KeyPath="yes"/>
+			  </Component>
+	  </ComponentGroup>
+  </Fragment>
+</Wix>

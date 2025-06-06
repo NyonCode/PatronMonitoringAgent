@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Obecné informace o sestavení se řídí přes následující 
 // sadu atributů. Změnou hodnot těchto atributů se upraví informace
 // přidružené k sestavení.
-[assembly: AssemblyTitle("PatronMonitoringAgent.Tray")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Patron Monitoring Agent Client")]
+[assembly: AssemblyDescription("Endpoint monitoring system")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PatronMonitoringAgent.Tray")]
+[assembly: AssemblyCompany("NyonCode")]
+[assembly: AssemblyProduct("Patron Monitoring Agent Client")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

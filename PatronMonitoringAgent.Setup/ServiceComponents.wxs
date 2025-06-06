@@ -1,0 +1,57 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<ComponentGroup Id="ServiceComponents" Directory="INSTALLFOLDER">
+
+			<Component Id="PatronMonitoringAgentFiles" Guid="B8C00C62-81F9-4071-82C4-002459291F69">
+				<!-- Executable -->
+				<File Id="File_PatronMonitoringAgentExeConfig" Source="$(var.PatronMonitoringAgent.TargetDir)PatronMonitoringAgent.exe.config" />
+
+				<!-- DLLs -->
+				<File Id="File_HidSharp" Source="$(var.PatronMonitoringAgent.TargetDir)HidSharp.dll" />
+				<File Id="File_LibreHardwareMonitorLib" Source="$(var.PatronMonitoringAgent.TargetDir)LibreHardwareMonitorLib.dll" />
+				<File Id="File_AsyncInterfaces" Source="$(var.PatronMonitoringAgent.TargetDir)Microsoft.Bcl.AsyncInterfaces.dll" />
+				<File Id="File_TimeProvider" Source="$(var.PatronMonitoringAgent.TargetDir)Microsoft.Bcl.TimeProvider.dll" />
+				<File Id="File_DependencyInjectionAbstractions" Source="$(var.PatronMonitoringAgent.TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+				<File Id="File_DependencyInjection" Source="$(var.PatronMonitoringAgent.TargetDir)Microsoft.Extensions.DependencyInjection.dll" />
+				<File Id="File_NewtonsoftJson" Source="$(var.PatronMonitoringAgent.TargetDir)Newtonsoft.Json.dll" />
+				<File Id="File_PollyCore" Source="$(var.PatronMonitoringAgent.TargetDir)Polly.Core.dll" />
+				<File Id="File_Polly" Source="$(var.PatronMonitoringAgent.TargetDir)Polly.dll" />
+				<File Id="File_Serilog" Source="$(var.PatronMonitoringAgent.TargetDir)Serilog.dll" />
+				<File Id="File_SerilogEventLog" Source="$(var.PatronMonitoringAgent.TargetDir)Serilog.Sinks.EventLog.dll" />
+				<File Id="File_SerilogFile" Source="$(var.PatronMonitoringAgent.TargetDir)Serilog.Sinks.File.dll" />
+				<File Id="File_SystemBuffers" Source="$(var.PatronMonitoringAgent.TargetDir)System.Buffers.dll" />
+				<File Id="File_SystemCodeDom" Source="$(var.PatronMonitoringAgent.TargetDir)System.CodeDom.dll" />
+				<File Id="File_SystemAnnotations" Source="$(var.PatronMonitoringAgent.TargetDir)System.ComponentModel.Annotations.dll" />
+				<File Id="File_DiagnosticSource" Source="$(var.PatronMonitoringAgent.TargetDir)System.Diagnostics.DiagnosticSource.dll" />
+				<File Id="File_SystemMemory" Source="$(var.PatronMonitoringAgent.TargetDir)System.Memory.dll" />
+				<File Id="File_NumericsVectors" Source="$(var.PatronMonitoringAgent.TargetDir)System.Numerics.Vectors.dll" />
+				<File Id="File_RuntimeUnsafe" Source="$(var.PatronMonitoringAgent.TargetDir)System.Runtime.CompilerServices.Unsafe.dll" />
+				<File Id="File_Channels" Source="$(var.PatronMonitoringAgent.TargetDir)System.Threading.Channels.dll" />
+				<File Id="File_TasksExtensions" Source="$(var.PatronMonitoringAgent.TargetDir)System.Threading.Tasks.Extensions.dll" />
+			</Component>
+
+			<!-- Windows Service -->
+			<Component Id="AgentService" Guid="21639402-2D7D-414A-BE12-EBD8BD9D9D5E">
+				<File Id="File_AgentExe" Source="$(var.PatronMonitoringAgent.TargetDir)PatronMonitoringAgent.exe" KeyPath="yes" />
+				<ServiceInstall
+				  Id="ServiceInstaller"
+				  Type="ownProcess"
+				  Name="PatronMonitoringAgent"
+				  DisplayName="Patron Monitoring Agent"
+				  Description="Endpoint monitoring system"
+				  Start="auto"
+				  ErrorControl="normal"
+				  Vital="yes" />
+
+				<ServiceControl
+				  Id="StartService"
+				  Name="PatronMonitoringAgent"
+				  Start="install"
+				  Stop="both"
+				  Remove="uninstall"
+				  Wait="yes" />
+			</Component>
+
+		</ComponentGroup>
+	</Fragment>
+</Wix>

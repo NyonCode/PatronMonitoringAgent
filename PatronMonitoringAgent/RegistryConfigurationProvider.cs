@@ -23,9 +23,15 @@ namespace PatronMonitoringAgent
         public void SaveToken(string token) => SetEncryptedToRegistry("Token", token);
         public void SaveInterval(int? interval) => SetToRegistry("Interval", interval.ToString());
 
+        /// <summary>
+        /// Retrieves or creates an AES key for encryption/decryption.
+        /// </summary>
+        /// <returns>
+        /// A byte array representing the AES key.
+        /// </returns>
         private static byte[] GetOrCreateAesKey()
         {
-            using (var key = Registry.LocalMachine.CreateSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.CreateSubKey(RegPath))
             {
                 var protectedKey = key.GetValue(AesKeyName) as byte[];
                 if (protectedKey != null)
@@ -46,18 +52,50 @@ namespace PatronMonitoringAgent
             }
         }
 
+        /// <summary>
+        /// Retrieves a string value from the registry under the specified name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>
+        /// The string value from the registry, or null if not found.
+        /// </returns>
         private string GetFromRegistry(string name)
         {
-            using (var key = Registry.LocalMachine.OpenSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(RegPath))
+            {
                 return key?.GetValue(name)?.ToString();
+            }
         }
 
+        /// <summary>
+        /// Sets a string value to the registry under the specified name.
+        /// If the key does not exist, it will be created.
+        /// </summary>
+        /// <param name="name">The name of the registry value.</param>
+        /// <param name="value">The string value to set.</param>
+        /// <remarks>
+        /// This method creates or opens the registry key at the specified path and sets the value.
+        /// If the key already exists, it will overwrite the existing value.
+        /// </remarks>
         private void SetToRegistry(string name, string value)
         {
-            using (var key = Registry.LocalMachine.CreateSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.CreateSubKey(RegPath))
                 key.SetValue(name, value);
         }
 
+        /// <summary>
+        /// Encrypts a string value and sets it to the registry under the specified name.
+        /// If the key does not exist, it will be created.
+        /// </summary>
+        /// <param name="name">The name of the registry value.</param>
+        /// <param name="value">The string value to encrypt and set.</param>
+        /// <remarks>
+        /// This method uses AES encryption to secure the value before storing it in the registry.
+        /// If the key already exists, it will overwrite the existing value.
+        /// The AES key is stored securely in the registry and used for encryption/decryption.
+        /// The encrypted value is stored as a Base64 string to ensure it can be safely written to the registry.
+        /// The IV (Initialization Vector) is prepended to the encrypted data to allow decryption later.
+        /// </remarks>
         private void SetEncryptedToRegistry(string name, string value)
         {
             using (var aes = Aes.Create())
@@ -74,6 +112,16 @@ namespace PatronMonitoringAgent
             }
         }
 
+        /// <summary>
+        /// Decrypts a string value from the registry under the specified name.
+        /// If the value is not found or cannot be decrypted, returns null.
+        /// </summary>
+        /// 
+        /// <param name="name">The name of the registry value.</param>
+        /// 
+        /// <returns>
+        /// The decrypted string value from the registry, or null if not found or decryption fails.
+        /// </returns>
         private string DecryptFromRegistry(string name)
         {
             var val = GetFromRegistry(name);
@@ -94,9 +142,13 @@ namespace PatronMonitoringAgent
         /// <summary>
         /// Returns existing UUID or generates and stores a new one if not present.
         /// </summary>
+        /// 
+        /// <returns>
+        /// The UUID as a string.
+        /// </returns>
         private string GetOrCreateUUID()
         {
-            using (var key = Registry.LocalMachine.CreateSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(RegPath))
             {
                 var uuid = key.GetValue(UUIDName) as string;
                 if (string.IsNullOrEmpty(uuid))
@@ -111,29 +163,45 @@ namespace PatronMonitoringAgent
         /// <summary>
         /// Returns true if UUID exists in the registry, false otherwise.
         /// </summary>
+        /// 
         /// <returns>
         /// Boolean indicating whether UUID exists.
         /// </returns>
         private bool IsExistUUID()
         {
-            using (var key = Registry.LocalMachine.CreateSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(RegPath))
             {
                 var uuid = key.GetValue(UUIDName) as string;
                 return !string.IsNullOrEmpty(uuid);
             }
         }
 
+        /// <summary>
+        /// Returns true if Token exists in the registry, false otherwise.
+        /// </summary>
+        /// 
+        /// <returns>
+        /// Boolean indicating whether Token exists.
+        /// </returns>
         private bool IsSetToken()
         {
-            using (var key = Registry.LocalMachine.CreateSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(RegPath))
             {
                 var token = key.GetValue("Token") as string;
                 return !string.IsNullOrEmpty(token);
             }
         }
+
+        /// <summary>
+        /// Returns true if Interval exists in the registry, false otherwise.
+        /// </summary>
+        /// 
+        /// <returns>
+        /// Boolean indicating whether Interval exists.
+        /// </returns>
         private bool IsSetInterval()
         {
-            using (var key = Registry.LocalMachine.CreateSubKey(RegPath))
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(RegPath))
             {
                 var interval = key.GetValue("Interval") as string;
                 return !string.IsNullOrEmpty(interval);

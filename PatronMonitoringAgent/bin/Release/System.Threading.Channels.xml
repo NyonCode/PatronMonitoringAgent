@@ -41,16 +41,16 @@
       <typeparam name="T">Specifies the type of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
-    <member name="M:System.Threading.Channels.Channel.CreateBounded``1(System.Threading.Channels.BoundedChannelOptions)">
-      <summary>Creates a channel with the specified maximum capacity.</summary>
-      <param name="options">Options that guide the behavior of the channel.</param>
-      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
-      <returns>The created channel.</returns>
-    </member>
     <member name="M:System.Threading.Channels.Channel.CreateBounded``1(System.Threading.Channels.BoundedChannelOptions,System.Action{``0})">
       <summary>Creates a channel subject to the provided options.</summary>
       <param name="options">Options that guide the behavior of the channel.</param>
       <param name="itemDropped">Delegate that will be called when item is being dropped from channel. See <see cref="T:System.Threading.Channels.BoundedChannelFullMode" />.</param>
+      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
+      <returns>The created channel.</returns>
+    </member>
+    <member name="M:System.Threading.Channels.Channel.CreateBounded``1(System.Threading.Channels.BoundedChannelOptions)">
+      <summary>Creates a channel with the specified maximum capacity.</summary>
+      <param name="options">Options that guide the behavior of the channel.</param>
       <typeparam name="T">Specifies the type of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
@@ -61,6 +61,17 @@
     </member>
     <member name="M:System.Threading.Channels.Channel.CreateUnbounded``1(System.Threading.Channels.UnboundedChannelOptions)">
       <summary>Creates an unbounded channel subject to the provided options.</summary>
+      <param name="options">Options that guide the behavior of the channel.</param>
+      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
+      <returns>The created channel.</returns>
+    </member>
+    <member name="M:System.Threading.Channels.Channel.CreateUnboundedPrioritized``1">
+      <summary>Creates an unbounded prioritized channel usable by any number of readers and writers concurrently.</summary>
+      <typeparam name="T" />
+      <returns>The created channel.</returns>
+    </member>
+    <member name="M:System.Threading.Channels.Channel.CreateUnboundedPrioritized``1(System.Threading.Channels.UnboundedPrioritizedChannelOptions{``0})">
+      <summary>Creates an unbounded prioritized channel subject to the provided options.</summary>
       <param name="options">Options that guide the behavior of the channel.</param>
       <typeparam name="T">Specifies the type of data in the channel.</typeparam>
       <returns>The created channel.</returns>
@@ -111,14 +122,14 @@
       <param name="info">The object that holds the serialized object data.</param>
       <param name="context">The contextual information about the source or destination.</param>
     </member>
-    <member name="M:System.Threading.Channels.ChannelClosedException.#ctor(System.String)">
-      <summary>Initializes a new instance of the <see cref="T:System.Threading.Channels.ChannelClosedException" /> class.</summary>
-      <param name="message">The message that describes the error.</param>
-    </member>
     <member name="M:System.Threading.Channels.ChannelClosedException.#ctor(System.String,System.Exception)">
       <summary>Initializes a new instance of the <see cref="T:System.Threading.Channels.ChannelClosedException" /> class.</summary>
       <param name="message">The message that describes the error.</param>
       <param name="innerException">The exception that is the cause of this exception.</param>
+    </member>
+    <member name="M:System.Threading.Channels.ChannelClosedException.#ctor(System.String)">
+      <summary>Initializes a new instance of the <see cref="T:System.Threading.Channels.ChannelClosedException" /> class.</summary>
+      <param name="message">The message that describes the error.</param>
     </member>
     <member name="T:System.Threading.Channels.ChannelOptions">
       <summary>Provides options that control the behavior of channel instances.</summary>
@@ -151,11 +162,13 @@
     <member name="M:System.Threading.Channels.ChannelReader`1.ReadAllAsync(System.Threading.CancellationToken)">
       <summary>Creates an <see cref="T:System.Collections.Generic.IAsyncEnumerable`1" /> that enables reading all of the data from the channel.</summary>
       <param name="cancellationToken">The cancellation token to use to cancel the enumeration. If data is immediately ready for reading, then that data may be yielded even after cancellation has been requested.</param>
+      <exception cref="T:System.OperationCanceledException">The cancellation token was canceled. This exception is stored into the returned task.</exception>
       <returns>The created async enumerable.</returns>
     </member>
     <member name="M:System.Threading.Channels.ChannelReader`1.ReadAsync(System.Threading.CancellationToken)">
       <summary>Asynchronously reads an item from the channel.</summary>
       <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> used to cancel the read operation.</param>
+      <exception cref="T:System.OperationCanceledException">The cancellation token was canceled. This exception is stored into the returned task.</exception>
       <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1" /> that represents the asynchronous read operation.</returns>
     </member>
     <member name="M:System.Threading.Channels.ChannelReader`1.TryPeek(`0@)">
@@ -173,6 +186,7 @@
     <member name="M:System.Threading.Channels.ChannelReader`1.WaitToReadAsync(System.Threading.CancellationToken)">
       <summary>Returns a <see cref="T:System.Threading.Tasks.ValueTask`1" /> that will complete when data is available to read.</summary>
       <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> used to cancel the wait operation.</param>
+      <exception cref="T:System.OperationCanceledException">The cancellation token was canceled. This exception is stored into the returned task.</exception>
       <returns>
         <para>A <see cref="T:System.Threading.Tasks.ValueTask`1" /> that will complete with a <see langword="true" /> result when data is available to read
             or with a <see langword="false" /> result when no further data will ever be available to be read due to the channel completing successfully.</para>
@@ -224,6 +238,7 @@
     <member name="M:System.Threading.Channels.ChannelWriter`1.WaitToWriteAsync(System.Threading.CancellationToken)">
       <summary>Returns a <see cref="T:System.Threading.Tasks.ValueTask`1" /> that will complete when space is available to write an item.</summary>
       <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> used to cancel the wait operation.</param>
+      <exception cref="T:System.OperationCanceledException">The cancellation token was canceled. This exception is stored into the returned task.</exception>
       <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1" /> that will complete with a <see langword="true" /> result when space is available to write an item
             or with a <see langword="false" /> result when no further writing will be permitted.</returns>
     </member>
@@ -231,6 +246,7 @@
       <summary>Asynchronously writes an item to the channel.</summary>
       <param name="item">The value to write to the channel.</param>
       <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> used to cancel the write operation.</param>
+      <exception cref="T:System.OperationCanceledException">The cancellation token was canceled. This exception is stored into the returned task.</exception>
       <returns>A <see cref="T:System.Threading.Tasks.ValueTask" /> that represents the asynchronous write operation.</returns>
     </member>
     <member name="T:System.Threading.Channels.UnboundedChannelOptions">
@@ -238,6 +254,14 @@
     </member>
     <member name="M:System.Threading.Channels.UnboundedChannelOptions.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.Threading.Channels.UnboundedChannelOptions" /> class.</summary>
+    </member>
+    <member name="T:System.Threading.Channels.UnboundedPrioritizedChannelOptions`1">
+      <summary>Provides options that control the behavior of instances created by <see cref="M:System.Threading.Channels.Channel.CreateUnboundedPrioritized``1" />.</summary>
+      <typeparam name="T" />
+    </member>
+    <member name="M:System.Threading.Channels.UnboundedPrioritizedChannelOptions`1.#ctor" />
+    <member name="P:System.Threading.Channels.UnboundedPrioritizedChannelOptions`1.Comparer">
+      <summary>Gets or sets the comparer used by the channel to prioritize elements.</summary>
     </member>
   </members>
 </doc>

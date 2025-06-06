@@ -1,7 +1,9 @@
-﻿using PatronMonitoringAgent.Common;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PatronMonitoringAgent.Common;
 using System;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PatronMonitoringAgent
@@ -10,11 +12,14 @@ namespace PatronMonitoringAgent
     {
 
 
-        private AgentRunner _runner;
+        private readonly AgentRunner _runner;
+        private readonly IServiceProvider _provider;
 
-        public AgentService()
+        public AgentService(IServiceProvider provider)
         {
             InitializeComponent();
+            _provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            _runner = _provider.GetRequiredService<AgentRunner>();
         }
 
         protected override void OnStart(string[] args)
@@ -24,7 +29,6 @@ namespace PatronMonitoringAgent
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            _runner = new AgentRunner();
             _runner.StartAsync();
         }
 
@@ -36,6 +40,7 @@ namespace PatronMonitoringAgent
             serviceStatus.dwControlsAccepted = 0x00000001; // SERVICE_ACCEPT_STOP
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOP_PENDING;
             serviceStatus.dwWaitHint = 100000;
+
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             // Update the service state to Stopped.
@@ -47,7 +52,13 @@ namespace PatronMonitoringAgent
 
         protected override void OnShutdown()
         {
-            OnStop();
+            if (_runner != null)
+            {
+                _runner?.OnShutdown();
+                OnStop();
+            }
+
+            base.OnShutdown();
         }
 
         public enum ServiceState
